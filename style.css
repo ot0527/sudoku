@@ -1,0 +1,16 @@
+body {
+}
+#Board {
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+td {
+}
+.cell {
+  width: 60px;
+  height: 60px;
+  font-size: 45px;
+  text-align: center;
+  caret-color: transparent;
+  border: none;
+}
