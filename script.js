@@ -7,6 +7,7 @@ const createBoard = () => {
       const input = document.createElement("input");
       input.type = "text";
       input.maxLength = 1;
+      input.id = `${i + 1}${j + 1}`;
       input.oninput = function () {
         validateInput(this);
       };

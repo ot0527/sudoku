@@ -1,10 +1,30 @@
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(80, 79, 79);
 }
 #Board {
   border-collapse: collapse;
-  border: 2px solid black;
+  border: 4px solid black;
+}
+td:nth-child(3) {
+  border-right: 4px solid black;
+}
+td:nth-child(6) {
+  border-right: 4px solid black;
+}
+tr:nth-child(3) {
+  border-bottom: 4px solid black;
+}
+tr:nth-child(6) {
+  border-bottom: 4px solid black;
 }
 td {
+  border-right: 2px solid black;
+}
+tr {
+  border-bottom: 2px solid black;
 }
 .cell {
   width: 60px;
@@ -13,4 +33,5 @@ td {
   text-align: center;
   caret-color: transparent;
   border: none;
+  color: rgb(0, 68, 255);
 }
