@@ -2,7 +2,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: rgb(80, 79, 79);
+}
+.btns {
+  display: flex;
+  position: relative;
+  top: 50px;
 }
 #Board {
   border-collapse: collapse;
