@@ -41,3 +41,61 @@ tr {
   border: none;
   color: rgb(0, 68, 255);
 }
+
+
+.btns {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #d0d0d0;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.numBtn {
+  background-color: #ffffff;
+}
+
+.numBtn:hover {
+  background-color: #f0f0f0;
+}
+
+.delBtn {
+  background-color: #ffdddd;
+  color: #c00;
+}
+
+.delBtn:hover {
+  background-color: #ffcccc;
+}
+
+#easy, #normal, #difficult {
+  background-color: #d0ebff;
+  color: #0077cc;
+}
+
+#easy:hover,
+#normal:hover,
+#difficult:hover {
+  background-color: #b0daff;
+}
