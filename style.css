@@ -42,7 +42,6 @@ tr {
   color: rgb(0, 68, 255);
 }
 
-
 .btns {
   margin-top: 20px;
   display: flex;
@@ -60,7 +59,7 @@ button {
   border-radius: 8px;
   background-color: #e0e0e0;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s, transform 0.1s;
 }
 
@@ -88,14 +87,30 @@ button:active {
 .delBtn:hover {
   background-color: #ffcccc;
 }
+.btn {
+  position: relative;
+  left: 90px;
+}
 
-#easy, #normal, #difficult {
+#easy,
+#normal,
+#difficult {
   background-color: #d0ebff;
   color: #0077cc;
+  width: 170px;
+  margin-bottom: 20px;
 }
 
 #easy:hover,
 #normal:hover,
 #difficult:hover {
   background-color: #b0daff;
+}
+
+.difficult {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -600px;
+  right: 900px;
 }

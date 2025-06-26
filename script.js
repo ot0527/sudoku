@@ -1,24 +1,45 @@
 //数独データ初期値
 const sudokuData = {
   //穴空き盤面
-  board:[],
+  board: [],
   //解答盤面
-  fillBoard:[],
+  fillBoard: [],
   //フォーカスされているinput
-  currentInput:null,
+  currentInput: null,
   //間違えた回数
-  missCount:0,
+  missCount: 0,
   //行の要素番号
-  row:0,
+  row: 0,
   //列の要素番号
-  col:0
-}
+  col: 0,
+};
 //フォーカスしているinputの保持
-function focusInput(){
+function focusInput() {
   //inputタグ取得後、focusされているinputをcurrentInputに保存
   document.querySelectorAll("input").forEach((input) => {
     input.addEventListener("focus", () => {
+      document.querySelectorAll("input").forEach((e) => {
+        e.style.backgroundColor = "";
+      });
       sudokuData.currentInput = input;
+      const rowId = parseInt(sudokuData.currentInput.id.charAt(0));
+      const colId = parseInt(sudokuData.currentInput.id.charAt(1));
+      for (let row = 0; row < 9; row++) {
+        const input = document.getElementById(`${row}${colId}`);
+        input.style.backgroundColor = "#dcdcdc";
+      }
+      for (let col = 0; col < 9; col++) {
+        const input = document.getElementById(`${rowId}${col}`);
+        input.style.backgroundColor = "#dcdcdc";
+      }
+      const threeRow = Math.floor(rowId / 3) * 3;
+      const threeCol = Math.floor(colId / 3) * 3;
+      for (let i = threeRow; i < threeRow + 3; i++) {
+        for (let j = threeCol; j < threeCol + 3; j++) {
+          const input = document.getElementById(`${i}${j}`);
+          input.style.backgroundColor = "#dcdcdc";
+        }
+      }
     });
   });
 }
@@ -31,7 +52,8 @@ const createBoard = () => {
       const td = document.createElement("td");
       const input = document.createElement("input");
       input.type = "text";
-      input.maxLength = 1;
+      input.setAttribute("autocomplete", "off");
+      input.setAttribute("inputmode", "numeric");
       input.id = `${row}${col}`;
       input.classList.add("cell");
       td.appendChild(input);
@@ -106,7 +128,7 @@ const sudokuAlgo = () => {
   //問題生成
   backTrackSudoku(board);
   //ディープコピーでfillBoardに保存しておく。
-  sudokuData.fillBoard = board.map(row => [...row]);
+  sudokuData.fillBoard = board.map((row) => [...row]);
   return board;
 };
 
@@ -130,7 +152,7 @@ function displayNum(board) {
       const input = document.getElementById(`${row}${col}`);
       if (input) {
         input.value = board[row][col] == 0 ? "" : board[row][col];
-        if(input.value != ""){
+        if (input.value != "") {
           input.style.color = "black";
           input.readOnly = true;
         } else {
@@ -167,68 +189,81 @@ function fillNumber() {
 fillNumber();
 
 //キーボード入力処理
-function keyInputCheck(){
+function keyInputCheck() {
   const inputNum = document.querySelectorAll("input");
-  inputNum.forEach((num)=>{
-    num.addEventListener("input",(e)=>{
+  inputNum.forEach((num) => {
+    num.addEventListener("input", (e) => {
       e.target.value = e.target.value.replace(/[^1-9]/g, "");
-      checkAnswer(e.target.value,e.target)
-    })
-  })
+      e.target.value = e.target.value.replace(/[\u3040-\u309F]/g, "");
+      e.target.value = e.target.value.slice(-1);
+      checkAnswer(e.target.value, e.target);
+    });
+  });
 }
 keyInputCheck();
 
 //ボタン入力処理
-function btnInputCheck(){
+function btnInputCheck() {
   const button = document.querySelectorAll(".numBtn");
-  button.forEach((btn)=>{
-    btn.addEventListener("click",(e)=>{
-      checkAnswer(e.target.textContent,sudokuData.currentInput);
-    })
-  })
+  button.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      checkAnswer(e.target.textContent, sudokuData.currentInput);
+    });
+  });
 }
 btnInputCheck();
 
 //入力の正誤処理
-function checkAnswer(value,input){
+function checkAnswer(value, input) {
   sudokuData.row = parseInt(input.id.charAt(0));
   sudokuData.col = parseInt(input.id.charAt(1));
-  if(value == ""){
+  if (value == "") {
     return;
-  }else if(value != sudokuData.fillBoard[sudokuData.row][sudokuData.col]){
-    input.style.color ="red";
+  } else if (value != sudokuData.fillBoard[sudokuData.row][sudokuData.col]) {
+    input.style.color = "red";
     sudokuData.missCount++;
-    if(sudokuData.missCount == 3){
+    if (sudokuData.missCount == 3) {
       setTimeout(() => {
         gameOver();
-      }, 10); 
+      }, 10);
     }
-  }else {
+  } else {
     input.style.color = "blue";
   }
-    input.value = value;
+  input.value = value;
+  sudokuData.board[sudokuData.row][sudokuData.col] = value;
+  finish();
 }
 
 //数字の削除処理
-function deleteNum(){
-  if(sudokuData.currentInput && !sudokuData.currentInput.readOnly){
+function deleteNum() {
+  if (sudokuData.currentInput && !sudokuData.currentInput.readOnly) {
     sudokuData.currentInput.value = "";
   }
 }
 
 //ゲームオーバー処理
-function gameOver(){
-    alert("ゲームオーバー");
-    clearSudokuData();
+function gameOver() {
+  alert("ゲームオーバー");
+  clearSudokuData();
 }
 
-function clearSudokuData(){
+//正解処理
+function finish() {
+  const noNull = !sudokuData.board.includes("");
+  if (noNull) {
+    alert("正解");
+    clearSudokuData();
+  }
+}
+
+function clearSudokuData() {
   sudokuData.board = [];
   sudokuData.fillBoard = [];
   sudokuData.currentInput = null;
   sudokuData.missCount = 0;
   const input = document.querySelectorAll("input");
-  input.forEach(input => {
+  input.forEach((input) => {
     input.value = "";
     input.readOnly = false;
   });
