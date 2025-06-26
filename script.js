@@ -34,16 +34,10 @@ const createBoard = () => {
       input.maxLength = 1;
       input.id = `${row}${col}`;
       input.classList.add("cell");
-      input.oninput = (e) => {
-        validate(e.target);
-      };
       td.appendChild(input);
       tr.appendChild(td);
     }
     boardId.appendChild(tr);
-  }
-  function validate(el) {
-    el.value = el.value.replace(/[^0-9]/g, "");
   }
 };
 createBoard();
@@ -176,10 +170,9 @@ fillNumber();
 function keyInputCheck(){
   const inputNum = document.querySelectorAll("input");
   inputNum.forEach((num)=>{
-    num.oninput = null;
     num.addEventListener("input",(e)=>{
-      const value = e.target.value.slice(-1);
-      checkAnswer(value,e.target)
+      e.target.value = e.target.value.replace(/[^1-9]/g, "");
+      checkAnswer(e.target.value,e.target)
     })
   })
 }
@@ -213,7 +206,7 @@ function checkAnswer(value,input){
   }else {
     input.style.color = "blue";
   }
-  input.value = value;
+    input.value = value;
 }
 
 //数字の削除処理
