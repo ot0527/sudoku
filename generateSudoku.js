@@ -26,7 +26,6 @@ focusInput();
 
 //数独アルゴリズム
 export const sudokuAlgo = () => {
-  console.log(1);
   //9×9の配列作成
   const board = Array.from({ length: 9 }, () => Array(9).fill(0));
   //数字のシャッフル

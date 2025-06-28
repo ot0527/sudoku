@@ -2,7 +2,6 @@ import { sudokuData } from "./sudokuData.js";
 import { sudokuAlgo } from "./generateSudoku.js";
 //穴の空いた盤面をinput.valueに代入
 export function displayNum(board) {
-  console.log(3);
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const input = document.getElementById(`${row}${col}`);
@@ -21,8 +20,6 @@ export function displayNum(board) {
 }
 //画面に問題を出力する処理
 export function fillNumber() {
-  console.log(2);
-
   const btnId = document.querySelectorAll("button");
   btnId.forEach((btn) => {
     btn.addEventListener("click", (e) => {
