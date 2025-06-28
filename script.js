@@ -266,8 +266,9 @@ function gameOver() {
 
 //正解処理
 function finish() {
-  const noNull = !sudokuData.board.includes("");
-  if (noNull) {
+  const solved = !sudokuData.board.some((row) => row.some((col) => col === 0));
+  console.log(solved);
+  if (solved) {
     alert("正解");
     clearSudokuData();
   }
