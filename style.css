@@ -32,6 +32,7 @@ td {
 tr {
   border-bottom: 2px solid black;
 }
+/* すべてのセルに共通の見た目設定 */
 .cell {
   width: 60px;
   height: 60px;
@@ -39,7 +40,23 @@ tr {
   text-align: center;
   caret-color: transparent;
   border: none;
-  color: rgb(0, 68, 255);
+  background-color: white;
+  color: black; /* ← 初期は黒 */
+}
+
+/* 正しく入力されたユーザーの数字 */
+.correct {
+  color: blue;
+}
+
+/* 間違った入力 */
+.wrong {
+  color: red;
+}
+
+/* 最初から入っている数字（問題の一部） */
+.fixed {
+  color: black;
 }
 
 .btns {

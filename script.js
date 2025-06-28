@@ -14,6 +14,8 @@ const sudokuData = {
   col: 0,
   //クリックした数字
   matches: [],
+  //ゲームオーバー
+  isGameOver: false,
 };
 //フォーカスしているinputの保持
 function focusInput() {
@@ -168,8 +170,9 @@ function displayNum(board) {
       const input = document.getElementById(`${row}${col}`);
       if (input) {
         input.value = board[row][col] == 0 ? "" : board[row][col];
+        input.classList.remove("correct", "wrong", "fixed");
         if (input.value != "") {
-          input.style.color = "black";
+          input.classList.add("fixed");
           input.readOnly = true;
         } else {
           input.readOnly = false;
@@ -233,10 +236,11 @@ btnInputCheck();
 function checkAnswer(value, input) {
   sudokuData.row = parseInt(input.id.charAt(0));
   sudokuData.col = parseInt(input.id.charAt(1));
+  input.classList.remove("correct", "wrong");
   if (value == "") {
     return;
   } else if (value != sudokuData.fillBoard[sudokuData.row][sudokuData.col]) {
-    input.style.color = "red";
+    input.classList.add("wrong");
     sudokuData.missCount++;
     if (sudokuData.missCount == 3) {
       setTimeout(() => {
@@ -244,11 +248,13 @@ function checkAnswer(value, input) {
       }, 10);
     }
   } else {
-    input.style.color = "blue";
+    input.classList.add("correct");
   }
   input.value = value;
   sudokuData.board[sudokuData.row][sudokuData.col] = value;
-  finish();
+  setTimeout(() => {
+    finish();
+  }, 10);
 }
 
 //数字の削除処理
@@ -260,12 +266,14 @@ function deleteNum() {
 
 //ゲームオーバー処理
 function gameOver() {
+  sudokuData.isGameOver = true;
   alert("ゲームオーバー");
   clearSudokuData();
 }
 
 //正解処理
 function finish() {
+  if (sudokuData.isGameOver) return;
   const solved = !sudokuData.board.some((row) => row.some((col) => col === 0));
   console.log(solved);
   if (solved) {
