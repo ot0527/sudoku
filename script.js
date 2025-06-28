@@ -12,6 +12,8 @@ const sudokuData = {
   row: 0,
   //列の要素番号
   col: 0,
+  //クリックした数字
+  matches: [],
 };
 //フォーカスしているinputの保持
 function focusInput() {
@@ -22,6 +24,7 @@ function focusInput() {
         e.style.backgroundColor = "";
       });
       sudokuData.currentInput = input;
+      sudokuData.matches = [];
       const rowId = parseInt(sudokuData.currentInput.id.charAt(0));
       const colId = parseInt(sudokuData.currentInput.id.charAt(1));
       for (let row = 0; row < 9; row++) {
@@ -40,6 +43,19 @@ function focusInput() {
           input.style.backgroundColor = "#dcdcdc";
         }
       }
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (
+            sudokuData.currentInput.value != "" &&
+            sudokuData.board[i][j] == sudokuData.currentInput.value
+          ) {
+            sudokuData.matches.push({ row: i, col: j });
+            document.getElementById(`${i}${j}`).style.backgroundColor =
+              "#808080";
+          }
+        }
+      }
+      sudokuData.currentInput.style.backgroundColor = "#add8e6"; // 水色
     });
   });
 }
