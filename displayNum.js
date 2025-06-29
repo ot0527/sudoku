@@ -1,7 +1,7 @@
 import { sudokuData } from "./sudokuData.js";
-import { sudokuAlgo } from "./generateSudoku.js";
+import { sudokuAlgorithm } from "./generateSudoku.js";
 //穴の空いた盤面をinput.valueに代入
-export function displayNum(board) {
+export function displayBoard(board) {
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       const input = document.getElementById(`${row}${col}`);
@@ -19,30 +19,30 @@ export function displayNum(board) {
   }
 }
 //画面に問題を出力する処理
-export function fillNumber() {
+export function setupNewGame() {
   const btnId = document.querySelectorAll("button");
   btnId.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       switch (e.target.id) {
         case "easy":
-          sudokuData.board = sudokuAlgo();
-          changeDiff(sudokuData.board, 40);
+          sudokuData.board = sudokuAlgorithm();
+          removeCells(sudokuData.board, 40);
           break;
         case "normal":
-          sudokuData.board = sudokuAlgo();
-          changeDiff(sudokuData.board, 50);
+          sudokuData.board = sudokuAlgorithm();
+          removeCells(sudokuData.board, 50);
           break;
         case "difficult":
-          sudokuData.board = sudokuAlgo();
-          changeDiff(sudokuData.board, 60);
+          sudokuData.board = sudokuAlgorithm();
+          removeCells(sudokuData.board, 60);
           break;
       }
-      displayNum(sudokuData.board);
+      displayBoard(sudokuData.board);
     });
   });
 }
 //難易度別にマスに穴をあける
-function changeDiff(board, num) {
+function removeCells(board, num) {
   let count = 0;
   while (count < num) {
     const delrow = Math.floor(Math.random() * 9);

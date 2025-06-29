@@ -1,6 +1,6 @@
 import { sudokuData } from "./sudokuData.js";
 //フォーカスしているinputの保持
-export function focusInput() {
+export function highlightRelatedCells() {
   //inputタグ取得後、focusされているinputをcurrentInputに保存
   document.querySelectorAll("input").forEach((input) => {
     input.addEventListener("focus", () => {

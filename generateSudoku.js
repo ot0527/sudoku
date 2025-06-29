@@ -1,6 +1,6 @@
-import { focusInput } from "./focusInput.js";
+import { highlightRelatedCells } from "./focusInput.js";
 import { sudokuData } from "./sudokuData.js";
-import { fillNumber } from "./displayNum.js";
+import { setupNewGame } from "./displayNum.js";
 
 //数独UI作成
 const createBoard = () => {
@@ -22,10 +22,10 @@ const createBoard = () => {
   }
 };
 createBoard();
-focusInput();
+highlightRelatedCells();
 
 //数独アルゴリズム
-export const sudokuAlgo = () => {
+export const sudokuAlgorithm = () => {
   //9×9の配列作成
   const board = Array.from({ length: 9 }, () => Array(9).fill(0));
   //数字のシャッフル
@@ -90,4 +90,4 @@ export const sudokuAlgo = () => {
   sudokuData.fillBoard = board.map((row) => [...row]);
   return board;
 };
-fillNumber();
+setupNewGame();
