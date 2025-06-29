@@ -5,6 +5,7 @@ function deleteNum() {
     sudokuData.currentInput.value = "";
   }
 }
+document.querySelector(".delBtn").addEventListener("click", deleteNum);
 
 //ゲームオーバー処理
 export function gameOver() {
