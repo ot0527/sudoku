@@ -41,7 +41,6 @@ tr {
   caret-color: transparent;
   border: none;
   background-color: white;
-  color: black; /* ← 初期は黒 */
 }
 
 /* 正しく入力されたユーザーの数字 */
